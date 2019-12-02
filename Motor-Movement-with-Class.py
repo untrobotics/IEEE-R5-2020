@@ -47,8 +47,8 @@ class Move:
     def fwd():
         """This code will make the robot move forward"""
         print("Robot Moving Forward");
-        GPIO.output(enA, GPIO.LOW);
-        GPIO.output(enB, GPIO.LOW);
+        GPIO.output(enA, GPIO.HIGH);
+        GPIO.output(enB, GPIO.HIGH);
     
         GPIO.output(in1A, GPIO.HIGH);
         GPIO.output(in2A, GPIO.LOW);
@@ -60,11 +60,35 @@ class Move:
     def bwd():
         """This code will make the robot move backwards"""
         print("Robot Moving Backwards");
-        GPIO.output(enA, GPIO.LOW);
-        GPIO.output(enB, GPIO.LOW);
+        GPIO.output(enA, GPIO.HIGH);
+        GPIO.output(enB, GPIO.HIGH);
     
         GPIO.output(in1A, GPIO.LOW);
         GPIO.output(in2A, GPIO.HIGH);
+    
+        GPIO.output(in1B, GPIO.LOW);
+        GPIO.output(in2B, GPIO.HIGH);
+    
+    def spinright():
+        """This code will make the robot spin right"""
+        print("Robot Spinning Right");
+        GPIO.output(enA, GPIO.HIGH);
+        GPIO.output(enB, GPIO.HIGH);
+    
+        GPIO.output(in1A, GPIO.LOW);
+        GPIO.output(in2A, GPIO.HIGH);
+    
+        GPIO.output(in1B, GPIO.HIGH);
+        GPIO.output(in2B, GPIO.LOW);
+
+    def spinleft():
+        """This code will make the robot spin left"""
+        print("Robot Spinning Left");
+        GPIO.output(enA, GPIO.HIGH);
+        GPIO.output(enB, GPIO.HIGH);
+    
+        GPIO.output(in1A, GPIO.HIGH);
+        GPIO.output(in2A, GPIO.LOW);
     
         GPIO.output(in1B, GPIO.LOW);
         GPIO.output(in2B, GPIO.HIGH);
@@ -73,7 +97,7 @@ class Move:
         """This code will make the robot turn left"""
         print("Robot Turning Left");
         pwmA.start(dutycycle);
-        GPIO.output(enB, GPIO.LOW);
+        GPIO.output(enB, GPIO.HIGH);
     
         GPIO.output(in1A, GPIO.HIGH);
         GPIO.output(in2A, GPIO.LOW);
@@ -86,7 +110,7 @@ class Move:
     def right():
         """This code will make the robot turn right"""
         print("Robot Turning Right");
-        GPIO.output(enA, GPIO.LOW);
+        GPIO.output(enA, GPIO.HIGH);
         pwmB.start(dutycycle);
 
     
@@ -101,8 +125,8 @@ class Move:
     def mstop():
         """This code will make the robot stop moving"""
         print("Robot Stopping");
-        GPIO.output(enA, GPIO.HIGH);
-        GPIO.output(enB, GPIO.HIGH);
+        GPIO.output(enA, GPIO.LOW);
+        GPIO.output(enB, GPIO.LOW);
         print("Robot Stopped");
 
     def testmotors():
@@ -118,7 +142,11 @@ class Move:
         time.sleep(5);
         Move.bwd();
         time.sleep(5);
-        print("Finnish Motor Movement Test");
+        Move.spinright();
+        time.sleep(5);
+        Move.spinleft();
+        time.sleep(5);
+        print("Finish Motor Movement Test");
     
 def main():
     Move.testmotors();
